@@ -1,4 +1,4 @@
-package com.mycompany.managerinventool;
+package com.mycompany.pruebas_pseapp;
 //Librerias
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,7 +21,7 @@ public class PSEApp extends JFrame {
     private JTextArea areaResultado;
 
     public PSEApp() {
-        setTitle("💳 Pagos PSE - Manager Inventool");
+        setTitle(" Pagos PSE - Manager Inventool");
         setSize(650, 750);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +41,7 @@ public class PSEApp extends JFrame {
         };
 
         // Encabezado
-        JLabel header = new JLabel("🛠️ Manager Inventool - Pagos PSE", SwingConstants.CENTER);
+        JLabel header = new JLabel(" Manager Inventool - Pagos PSE", SwingConstants.CENTER);
         header.setFont(new Font("Segoe UI", Font.BOLD, 26));
         header.setForeground(primaryColor);
         header.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, secondaryColor));
@@ -61,7 +61,7 @@ public class PSEApp extends JFrame {
         gbc.insets = new Insets(10, 5, 10, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titulo = new JLabel("💰 Pago de Impuestos DIAN", SwingConstants.CENTER);
+        JLabel titulo = new JLabel(" Pago de Impuestos DIAN", SwingConstants.CENTER);
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 22));
         titulo.setForeground(primaryColor);
         titulo.setBorder(new EmptyBorder(0, 0, 10, 0));
@@ -72,12 +72,25 @@ public class PSEApp extends JFrame {
 
         // Campos del formulario
         campoImpuesto = new JComboBox<>(new String[]{"IVA", "Renta", "ICA"});
+        campoImpuesto.setName("campoImpuesto");  // Nombre para pruebas
+
         campoPeriodo = new JTextField();
+        campoPeriodo.setName("campoPeriodo");    // Nombre para pruebas
+
         campoNIT = new JTextField();
+        campoNIT.setName("campoNIT");            // Nombre para pruebas
+
         campoMonto = new JTextField();
+        campoMonto.setName("campoMonto");        // Nombre para pruebas
+
         campoBanco = new JComboBox<>(new String[]{"Bancolombia", "Banco de Bogotá", "Davivienda", "BBVA"});
+        campoBanco.setName("campoBanco");        // Nombre para pruebas
+
         campoCuenta = new JComboBox<>(new String[]{"Ahorros", "Corriente"});
+        campoCuenta.setName("campoCuenta");      // Nombre para pruebas
+
         campoCorreo = new JTextField();
+        campoCorreo.setName("campoCorreo");      // Nombre para pruebas
 
         agregarCampo(formCard, gbc, 1, "Tipo de Impuesto:", campoImpuesto);
         agregarCampo(formCard, gbc, 2, "Período (YYYY-MM):", campoPeriodo);
@@ -92,7 +105,11 @@ public class PSEApp extends JFrame {
         buttonPanel.setBackground(Color.WHITE);
 
         botonPagar = new JButton("💳 Pagar Ahora");
+        botonPagar.setName("botonPagar");  // Nombre para pruebas
+
         botonVolver = new JButton("⬅ Volver");
+        botonVolver.setName("botonVolver"); // opcional
+
         styleButton(botonPagar, secondaryColor, primaryColor);
         styleButton(botonVolver, primaryColor, Color.WHITE);
 
@@ -110,6 +127,7 @@ public class PSEApp extends JFrame {
 
         // Área de resultado
         areaResultado = new JTextArea(5, 25);
+        areaResultado.setName("areaResultado"); // Nombre para pruebas
         areaResultado.setEditable(false);
         areaResultado.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         areaResultado.setLineWrap(true);
@@ -176,20 +194,20 @@ public class PSEApp extends JFrame {
         String correo = campoCorreo.getText();
 
         if (periodo.isEmpty() || nit.isEmpty() || montoTexto.isEmpty() || correo.isEmpty()) {
-            mostrarMensaje("⚠️ Complete todos los campos obligatorios.", errorColor, new Color(255, 230, 230));
+            mostrarMensaje(" Complete todos los campos obligatorios.", errorColor, new Color(255, 230, 230));
             return;
         }
 
         try {
             double monto = Double.parseDouble(montoTexto);
-            areaResultado.setText("⏳ Procesando pago...");
+            areaResultado.setText(" Procesando pago...");
             areaResultado.setForeground(primaryColor);
             areaResultado.setBackground(new Color(240, 248, 255));
 
             new javax.swing.Timer(2000, e -> {
                 if (new Random().nextDouble() > 0.1) {
                     mostrarMensaje(
-                            "✅ Pago exitoso de $" + String.format("%,.2f", monto) +
+                            " Pago exitoso de $" + String.format("%,.2f", monto) +
                                     "\nImpuesto: " + impuesto +
                                     "\nPeríodo: " + periodo +
                                     "\nBanco: " + banco + " (" + tipoCuenta + ")" +
@@ -197,12 +215,12 @@ public class PSEApp extends JFrame {
                                     "\nRecibo enviado a: " + correo,
                             successColor, new Color(235, 255, 235));
                 } else {
-                    mostrarMensaje("❌ Error en el pago. Inténtalo de nuevo.", errorColor, new Color(255, 230, 230));
+                    mostrarMensaje(" Error en el pago. Inténtalo de nuevo.", errorColor, new Color(255, 230, 230));
                 }
                 ((javax.swing.Timer)e.getSource()).stop();
             }).start();
         } catch (NumberFormatException ex) {
-            mostrarMensaje("⚠️ Ingrese un monto válido.", errorColor, new Color(255, 230, 230));
+            mostrarMensaje(" Ingrese un monto válido.", errorColor, new Color(255, 230, 230));
         }
     }
 
